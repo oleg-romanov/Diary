@@ -8,8 +8,8 @@
 import UIKit
 
 class DayDataSource: NSObject {
-    private typealias OneHourEvents = (key: Date, value: [Event])
-    private var data: [OneHourEvents] = []
+    typealias OneHourEvents = (key: Date, value: [Event])
+    var data: [OneHourEvents] = []
 
     let collectionView: UICollectionView
     

@@ -14,7 +14,16 @@ class DetailedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = customView
+        navigationItem.leftBarButtonItem = customView.backButton
+        addActionHandlers()
     }
 
-    
+    private func addActionHandlers() {
+        customView.backButton.target = self
+        customView.backButton.action = #selector(backButtonTapped)
+    }
+
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
 }

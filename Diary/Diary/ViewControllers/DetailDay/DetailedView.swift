@@ -12,10 +12,24 @@ class DetailedView: UIView {
 
     //MARK:- Properties
 
-    var eventNameLabel: UILabel = UILabel()
-    var eventDateLabel: UILabel = UILabel()
-    var eventTimeLabel: UILabel = UILabel()
-    var eventDiscription: UILabel = UILabel()
+    private var eventNameLabel: UILabel = UILabel()
+    private var eventDateLabel: UILabel = UILabel()
+    private var eventTimeLabel: UILabel = UILabel()
+    private var eventDiscription: UILabel = UILabel()
+    lazy var backButton: UIBarButtonItem = UIBarButtonItem(
+            title: "Назад",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+
+    private var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = .none
+        dateFormatter.locale = Locale(identifier: "ru")
+        return dateFormatter
+    } ()
 
     init() {
         super.init(frame: UIScreen.main.bounds)
@@ -27,14 +41,13 @@ class DetailedView: UIView {
     }
 
     private func setup() {
-        backgroundColor = .yellow
         setupStyle()
         addSubviews()
         makeConstraints()
     }
 
     private func setupStyle() {
-        
+        backgroundColor = .white
     }
 
     private func addSubviews() {
@@ -45,6 +58,27 @@ class DetailedView: UIView {
     }
 
     private func makeConstraints() {
+        eventNameLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(32)
+            make.leading.equalToSuperview().inset(32)
+            make.trailing.equalToSuperview().inset(32)
+        }
+        eventDateLabel.snp.makeConstraints { make in
+            make.top.equalTo(eventNameLabel.snp.bottom).offset(32)
+            make.leading.equalToSuperview().inset(32)
+            make.trailing.equalToSuperview().inset(32)
+        }
+        eventDiscription.snp.makeConstraints { make in
+            make.top.equalTo(eventDateLabel.snp.bottom).offset(32)
+            make.leading.equalToSuperview().inset(32)
+            make.trailing.equalToSuperview().inset(32)
+        }
+        
+    }
 
+    func configure(event: Event) {
+        eventNameLabel.text = event.name
+        eventDateLabel.text = dateFormatter.string(from: event.date)
+        eventDiscription.text = event.descripton
     }
 }

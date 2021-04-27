@@ -46,7 +46,11 @@ class DayController: UIViewController {
 
 extension DayController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        present(DetailedViewController(), animated: true, completion: nil)
+        let detailVC = DetailedViewController()
+        detailVC.customView.configure(event: dataSource.data[indexPath.section].value[indexPath.row])
+//        present(detailVC, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: detailVC)
+        present(navigationController, animated: true)
         collectionView.deselectItem(at: indexPath, animated: true)
     }
 
